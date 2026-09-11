@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+.venv/
+venv/
+
+# Local/build output
+build/
+dist/
+*.spec
+engines/*.exe
+vendor/qkk/src/**/out/
+!vendor/qkk/src/Infrastructure/platforms/kuwo/runtime_m/out/
+!vendor/qkk/src/Infrastructure/platforms/kuwo/runtime_m/out/recovered_signature.json
+
+# Local IDE and OS files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini

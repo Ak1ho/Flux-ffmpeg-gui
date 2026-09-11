@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title description">
+  <title id="title">流转 · Flux</title>
+  <desc id="description">深色圆角方形底，紫蓝色播放符号由一道斜向留白切分，表达媒体处理与转换。</desc>
+  <defs>
+    <linearGradient id="surface" x1="160" y1="64" x2="824" y2="960" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1b1c23"/>
+      <stop offset="1" stop-color="#0c0d11"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="352" y1="270" x2="682" y2="752" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b3a5ff"/>
+      <stop offset="0.5" stop-color="#8c8bed"/>
+      <stop offset="1" stop-color="#697ddc"/>
+    </linearGradient>
+    <radialGradient id="light" cx="512" cy="512" r="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7b79de" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#7b79de" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="40" y="40" width="944" height="944" rx="218" fill="url(#surface)"/>
+  <rect x="41" y="41" width="942" height="942" rx="217" fill="none" stroke="#34343f" stroke-width="2"/>
+  <circle cx="512" cy="512" r="320" fill="url(#light)"/>
+  <g fill="url(#accent)">
+    <path d="M352 306 Q352 278 376 292 L589 413 L352 550 Z"/>
+    <path d="M352 601 L635 439 L748 504 Q772 518 748 532 L376 746 Q352 760 352 732 Z"/>
+  </g>
+</svg>
