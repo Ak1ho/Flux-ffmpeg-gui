@@ -479,9 +479,11 @@ class MainWindow(QMainWindow):
         self.refresh_files()
         added_paths = {item["path"] for item in added}
         self.files_table.blockSignals(True)
-        for row in range(self.files_table.rowCount()):
-            if self.files_table.item(row, 0).data(Qt.ItemDataRole.UserRole) in added_paths:
-                self.files_table.selectionModel().select(self.files_table.model().index(row, 0), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
+        if added_paths:
+            self.files_table.clearSelection()
+            for row in range(self.files_table.rowCount()):
+                if self.files_table.item(row, 0).data(Qt.ItemDataRole.UserRole) in added_paths:
+                    self.files_table.selectionModel().select(self.files_table.model().index(row, 0), QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows)
         self.files_table.blockSignals(False)
         self.selection_changed()
         self.notify(f"已导入 {len(added)} 个素材；跳过 {result['rejected']} 个不支持的文件、{len(result['files']) - len(added)} 个重复项。")

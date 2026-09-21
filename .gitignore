@@ -11,8 +11,7 @@ build/
 dist/
 *.spec
 engines/*.exe
-vendor/qkk/src/**/out/
-!vendor/qkk/src/Infrastructure/platforms/kuwo/runtime_m/out/
+vendor/qkk/src/**/out/*
 !vendor/qkk/src/Infrastructure/platforms/kuwo/runtime_m/out/recovered_signature.json
 
 # Local IDE and OS files

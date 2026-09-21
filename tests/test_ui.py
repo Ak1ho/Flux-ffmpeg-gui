@@ -170,3 +170,24 @@ def test_interrupted_queue_recovery(application, isolated, media, tmp_path):
     recovered.deleteLater()
     original.deleteLater()
     QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+
+
+def test_failed_task_releases_queue_and_clear_removes_terminal_jobs(application, isolated, media, tmp_path):
+    preferences = defaults()
+    preferences.update(output_dir=str(tmp_path / "results"), concurrency=1)
+    queue = tasks.TaskQueue(preferences)
+    bad_options = {**preferences, "ffmpeg_dir": str(tmp_path / "missing custom engine"), "format": "flac"}
+    good_options = {**preferences, "format": "flac"}
+    failed = queue.add([str(media["audio"])], "audio", "convert", bad_options)
+    success = queue.add([str(media["audio"])], "audio", "convert", good_options)
+    try:
+        queue.start()
+        wait_until(application, lambda: not queue.active and success["status"] == "success")
+        assert failed["status"] == "failed"
+        assert success["status"] == "success"
+        queue.clear_finished()
+        assert not queue.jobs
+    finally:
+        queue.shutdown()
+        queue.deleteLater()
+        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)

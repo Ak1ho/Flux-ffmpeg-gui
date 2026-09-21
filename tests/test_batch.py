@@ -120,8 +120,22 @@ def test_additional_import_extends_visible_selection(window, application, videos
     wait_until(application, lambda: len(window.files) == 1)
     window.import_paths([str(path) for path in videos[1:]])
     wait_until(application, lambda: len(window.files) == 3)
-    assert set(window.selected_paths()) == {str(path) for path in videos}
-    assert "3 个素材" in window.inspector.selection_text.text()
+    assert set(window.selected_paths()) == {str(path) for path in videos[1:]}
+    assert "2 个素材" in window.inspector.selection_text.text()
+
+
+def test_imported_video_replaces_audio_selection_and_uses_video_operations(window, application, videos, media):
+    window.import_paths([str(media["audio"])])
+    wait_until(application, lambda: len(window.files) == 1)
+    window.navigate("audio")
+    window.inspector.operation.setCurrentIndex(window.inspector.operation.findData("normalize"))
+    window.import_paths([str(videos[0])])
+    wait_until(application, lambda: len(window.files) == 2)
+    assert window.selected_paths() == [str(videos[0])]
+    assert window.inspector.kind == "video"
+    assert window.inspector.category.currentData() == "video"
+    assert window.inspector.operation.currentData() == "convert"
+    assert window.inspector.operation.itemText(1) == "压缩视频"
 
 
 def test_mixed_batch_requires_classification_before_enqueue(window, application, videos, media, tmp_path):

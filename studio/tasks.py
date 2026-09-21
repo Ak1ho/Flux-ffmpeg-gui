@@ -185,6 +185,7 @@ class TaskQueue(QObject):
         process.deleteLater()
         self.save()
         self.changed.emit()
+        self.pump()
 
     def cancel(self, identifier: str):
         job = self.find(identifier)
@@ -224,7 +225,7 @@ class TaskQueue(QObject):
         self.changed.emit()
 
     def clear_finished(self):
-        self.jobs = [job for job in self.jobs if job["status"] in {"pending", "running", "failed", "interrupted"} or job["id"] in self.active]
+        self.jobs = [job for job in self.jobs if job["status"] in {"pending", "running"} or job["id"] in self.active]
         self.save()
         self.changed.emit()
 
